@@ -2,6 +2,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stock_market_app/model/repository/EodRepository.dart';
 import 'package:stock_market_app/model/service/market_services.dart';
 
+import '../../model/responses/eod/data.dart';
 import '../../model/responses/eod/eod.dart';
 import '../state_classes/eod_state_notifier.dart';
 import '../states/network.dart';
@@ -26,3 +27,18 @@ final eodDataProvider = StateNotifierProvider<EodStateNotifier, Eod?>(
     return EodStateNotifier(null, repository);
   },
 );
+
+final filterProvider = StateProvider<String>((ref) => '');
+
+///Get list of data
+final dataProvider = StateProvider<List<Data>?>((ref) {
+  final eod = ref.watch(eodDataProvider);
+  final filterString = ref.watch(filterProvider);
+  if (filterString.isEmpty) {
+    eod?.data;
+  }
+  return eod?.data
+      ?.where(
+          (x) => x.symbol!.toLowerCase().contains(filterString.toLowerCase()))
+      .toList();
+});

@@ -11,6 +11,17 @@ class Companies {
   String toString() {
     return '$name $symbol';
   }
+
+  static String search(List<Companies> object, String key) {
+    late String result;
+    for (int i = 0; i < object.length; i++) {
+      if (object[i].symbol == key) {
+        result = object[i].name;
+        break;
+      }
+    }
+    return result;
+  }
 }
 
 List<Companies> companies = <Companies>[

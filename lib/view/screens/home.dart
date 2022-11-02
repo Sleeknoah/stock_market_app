@@ -33,8 +33,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     final loadingState = ref.watch(loadingProvider);
-    final eodState = ref.watch(eodDataProvider);
-    final data = eodState?.data;
+    final data = ref.watch(dataProvider);
     ref.listen<Eod?>(eodDataProvider, (previous, next) {
       ///if there is data set loading to false state
       if (next != null) {
@@ -51,13 +50,11 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
             SizedBox(
               height: Dimensions.screenHeight * 0.05,
             ),
-            Center(
-              child: Text(
-                'Watchlist',
-                style: GoogleFonts.nunito(
-                  fontWeight: FontWeight.bold,
-                  textStyle: Theme.of(context).textTheme.headline5,
-                ),
+            Text(
+              'Watchlist',
+              style: GoogleFonts.nunito(
+                fontWeight: FontWeight.bold,
+                textStyle: Theme.of(context).textTheme.headline5,
               ),
             ),
             SizedBox(
@@ -93,17 +90,19 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       shrinkWrap: true,
                       itemCount: data?.length,
                       itemBuilder: (context, index) {
-                        return CustomListItem(
-                          open: data![index].open!,
-                          close: data[index].close!,
-                          symbol: data[index].symbol!,
+                        return InkWell(
+                          onTap: () {
+                            print(data[index].symbol);
+                          },
+                          child: CustomListItem(
+                            open: data![index].open!,
+                            close: data[index].close!,
+                            symbol: data[index].symbol!,
+                          ),
                         );
                       }),
                 ),
               ),
-            ),
-            SizedBox(
-              height: Dimensions.screenHeight * 0.02,
             ),
           ],
         ),
