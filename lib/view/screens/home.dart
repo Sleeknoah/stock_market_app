@@ -42,7 +42,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
               ),
             ),
             SizedBox(
-              height: Dimensions.screenHeight * 0.04,
+              height: Dimensions.screenHeight * 0.05,
             ),
             const Padding(
               padding: EdgeInsets.symmetric(
