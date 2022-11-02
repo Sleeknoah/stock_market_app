@@ -8,9 +8,9 @@ class Data {
   double? high;
   double? low;
   double? close;
-  int? volume;
-  int? splitFactor;
-  int? dividend;
+  double? volume;
+  double? splitFactor;
+  double? dividend;
   String? symbol;
   String? exchange;
   String? date;

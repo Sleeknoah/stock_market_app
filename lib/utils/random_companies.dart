@@ -22,12 +22,11 @@ class RandomSymbols {
 
     ///Randomise symbols array
     symbols.shuffle();
-    for (int i = 0; i < 10; i++) {
+    for (int i = 0; i < 11; i++) {
       random.add(symbols[i]);
     }
 
     ///Join random and convert to string
-    print(random.join(","));
     return random.join(",");
   }
 }

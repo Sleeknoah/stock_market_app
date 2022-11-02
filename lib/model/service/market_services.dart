@@ -20,9 +20,9 @@ class MarketReportService {
     query['symbols'] = data;
     try {
       Response response = await dio.get(
-        ApiConstants.eodUrl,
-        queryParameters: query,
+        '${ApiConstants.eodUrl}?access_key=$apiKey&symbols=$data',
       );
+      print(response.data);
       return response;
     } on DioError catch (e) {
       throw 'error';

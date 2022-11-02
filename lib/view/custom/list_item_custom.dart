@@ -91,7 +91,7 @@ class CustomListItem extends StatelessWidget {
           width: 8,
         ),
         Text(
-          '$diff',
+          diff.toStringAsFixed(2),
           style: GoogleFonts.nunito(
             color: Colors.black54,
             fontWeight: FontWeight.normal,
