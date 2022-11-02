@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
-import '../network/api_constants.dart';
 import '../network/dio_client.dart';
+import '../network/network_constants.dart';
 
 class MarketReportService {
   var options = BaseOptions(
