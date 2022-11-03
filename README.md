@@ -27,13 +27,13 @@ The user can see historical reports using the date range feature
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
-- > Android Studio or Vscode. Flutter framework should be installed
+  > Android Studio or Vscode. Flutter framework should be installed
 
 ### Setup
-- > Clone repository using http or ssh 
+  > Clone repository using http or ssh 
 
 ### Install
-- > After clones and set up  run flutter pub get in pubspec.yaml. 
+  > After clones and set up  run flutter pub get in pubspec.yaml. 
   > After successful flutter get, run app by clicking play button or run flutter run in terminal
 
 
