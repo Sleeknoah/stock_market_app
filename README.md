@@ -17,7 +17,7 @@ The user can see historical reports using the date range feature
 - >Android Studio
 
 
-## Live Demo (if available)
+## Live Demo
 
 [Click this Live Demo Link to test app online](https://appetize.io/app/aprxbhccvtsfcakahy7nt33o44)
 
