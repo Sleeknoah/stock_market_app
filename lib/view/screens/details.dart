@@ -6,6 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:stock_market_app/model/responses/eod/data.dart';
 import 'package:stock_market_app/utils/size_constants.dart';
 import 'package:stock_market_app/view/custom/custom_list_tile.dart';
+import 'package:stock_market_app/view/custom/error_screen.dart';
 
 import '../../ViewModels/provider/providers.dart';
 import '../../model/companies.dart';
@@ -40,12 +41,37 @@ class _MarketDetailsState extends ConsumerState<MarketDetails> {
 
     final startDate = ref.watch(dateTimeStart);
     final endDate = ref.watch(endTimeStart);
+    final errorText = ref.watch(errorDetailsProvider);
 
     final loading = ref.watch(loadingDetailsProvider);
     ref.listen<Intraday?>(intradayDataProvider, (previous, next) {
       ///if there is data set loading to false state
       if (next != null) {
         ref.watch(loadingDetailsProvider.notifier).state = false;
+      }
+    });
+
+    ref.listen<String>(errorDetailsProvider, (previous, next) {
+      ///if there is an error use snackbar here
+      if (next.isNotEmpty) {
+        ref.watch(loadingDetailsProvider.notifier).state = false;
+        final snackBar = SnackBar(
+          content: Text(
+            next,
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              textStyle: Theme.of(context).textTheme.caption,
+            ),
+          ),
+          backgroundColor: (Colors.black),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            textColor: Colors.amberAccent,
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
 
@@ -203,39 +229,43 @@ class _MarketDetailsState extends ConsumerState<MarketDetails> {
                   ///Date Range filter
                   dateRangeRow(context, startDate, endDate),
 
-                  Visibility(
-                    visible: loading,
-                    child: Padding(
-                      padding: const EdgeInsets.all(16.0),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: const [
-                          CircularProgressIndicator(),
-                        ],
+                  Padding(
+                    padding: const EdgeInsets.only(top: 16.0),
+                    child: Visibility(
+                      visible: loading,
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: const [
+                            CircularProgressIndicator(),
+                          ],
+                        ),
                       ),
                     ),
                   ),
 
                   ///Date range picker
-                  Visibility(
-                    visible: !loading,
-                    child: ListView.builder(
-                      shrinkWrap: true,
-                      primary: false,
-                      reverse: true,
-                      itemCount: intradayData?.length,
-                      itemBuilder: (context, index) {
-                        final data = intradayData![index];
-                        return HistoryListTile(
-                          open: '${data.open?.toStringAsFixed(2)}',
-                          date: '${data.date?.substring(0, 10)}',
-                          close: '${data.close?.toStringAsFixed(2)}',
-                          high: '${data.high?.toStringAsFixed(2)}',
-                          low: '${data.low?.toStringAsFixed(2)}',
-                        );
-                      },
-                    ),
-                  ),
+                  intradayData != null
+                      ? ListView.builder(
+                          shrinkWrap: true,
+                          primary: false,
+                          reverse: true,
+                          itemCount: intradayData.length,
+                          itemBuilder: (context, index) {
+                            final data = intradayData[index];
+                            return HistoryListTile(
+                              open: '${data.open?.toStringAsFixed(2)}',
+                              date: '${data.date?.substring(0, 10)}',
+                              close: '${data.close?.toStringAsFixed(2)}',
+                              high: '${data.high?.toStringAsFixed(2)}',
+                              low: '${data.low?.toStringAsFixed(2)}',
+                            );
+                          },
+                        )
+                      : ErrorScreen(
+                          error: errorText,
+                        ),
                 ],
               ),
             ),

@@ -4,11 +4,11 @@ import 'package:google_fonts/google_fonts.dart';
 import 'custom_list_tile.dart';
 
 class HistoryListTile extends StatelessWidget {
-  final String date;
-  final String open;
-  final String close;
-  final String high;
-  final String low;
+  final String? date;
+  final String? open;
+  final String? close;
+  final String? high;
+  final String? low;
 
   const HistoryListTile({
     Key? key,
@@ -35,7 +35,7 @@ class HistoryListTile extends StatelessWidget {
             Padding(
               padding: const EdgeInsets.all(16.0),
               child: Text(
-                date,
+                date ?? '',
                 style: GoogleFonts.nunito(
                   fontWeight: FontWeight.w700,
                   textStyle: Theme.of(context).textTheme.headline6,

@@ -77,3 +77,9 @@ final endTimeStart = StateProvider.autoDispose<DateTime>((ref) {
 
 ///Set loading to true initially
 final loadingDetailsProvider = StateProvider.autoDispose<bool>((ref) => true);
+
+///Set Error to empty initially
+final errorDetailsProvider = StateProvider.autoDispose<String>((ref) => '');
+
+///Set Error to empty initially
+final errorProvider = StateProvider.autoDispose<String>((ref) => '');

@@ -6,6 +6,7 @@ import 'package:stock_market_app/model/responses/eod/eod.dart';
 import 'package:stock_market_app/utils/random_companies.dart';
 import 'package:stock_market_app/utils/size_constants.dart';
 import 'package:stock_market_app/view/custom/custom_autoComplete.dart';
+import 'package:stock_market_app/view/custom/error_screen.dart';
 import 'package:stock_market_app/view/custom/list_item_custom.dart';
 import 'package:stock_market_app/view/screens/details.dart';
 
@@ -35,10 +36,35 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
   Widget build(BuildContext context) {
     final loadingState = ref.watch(loadingProvider);
     final data = ref.watch(dataProvider);
+    final errorText = ref.watch(errorProvider);
     ref.listen<Eod?>(eodDataProvider, (previous, next) {
       ///if there is data set loading to false state
       if (next != null) {
         ref.watch(loadingProvider.notifier).state = false;
+      }
+    });
+
+    ref.listen<String>(errorProvider, (previous, next) {
+      ///if there is an error use snackbar here
+      if (next.isNotEmpty) {
+        ref.watch(loadingProvider.notifier).state = false;
+        final snackBar = SnackBar(
+          content: Text(
+            next,
+            style: GoogleFonts.nunito(
+              color: Colors.white,
+              fontWeight: FontWeight.bold,
+              textStyle: Theme.of(context).textTheme.caption,
+            ),
+          ),
+          backgroundColor: (Colors.black),
+          action: SnackBarAction(
+            label: 'Dismiss',
+            textColor: Colors.amberAccent,
+            onPressed: () {},
+          ),
+        );
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
       }
     });
 
@@ -79,40 +105,41 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                 ),
               ),
             ),
-            Visibility(
-              visible: !loadingState,
-              child: Expanded(
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0,
-                  ),
-                  child: ListView.builder(
-                      physics: const BouncingScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: data?.length,
-                      itemBuilder: (context, index) {
-                        return InkWell(
-                          onTap: () {
-                            Navigator.of(context).push(
-                              MaterialPageRoute(
-                                builder: (context) {
-                                  return MarketDetails(
-                                    dataSet: data[index],
-                                  );
-                                },
+            data != null
+                ? Expanded(
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0,
+                      ),
+                      child: ListView.builder(
+                          physics: const BouncingScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: data.length,
+                          itemBuilder: (context, index) {
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context).push(
+                                  MaterialPageRoute(
+                                    builder: (context) {
+                                      return MarketDetails(
+                                        dataSet: data[index],
+                                      );
+                                    },
+                                  ),
+                                );
+                              },
+                              child: CustomListItem(
+                                open: data[index].open!,
+                                close: data[index].close!,
+                                symbol: data[index].symbol!,
                               ),
                             );
-                          },
-                          child: CustomListItem(
-                            open: data![index].open!,
-                            close: data[index].close!,
-                            symbol: data[index].symbol!,
-                          ),
-                        );
-                      }),
-                ),
-              ),
-            ),
+                          }),
+                    ),
+                  )
+                : errorText.isNotEmpty
+                    ? ErrorScreen(error: errorText)
+                    : const SizedBox.shrink(),
           ],
         ),
       ),
