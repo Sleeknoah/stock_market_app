@@ -97,7 +97,7 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       ),
                     ),
                   )
-                : SizedBox.shrink(),
+                : const SizedBox.shrink(),
             SizedBox(
               height: Dimensions.screenHeight * 0.05,
             ),
