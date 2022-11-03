@@ -19,7 +19,7 @@ The user can see historical reports using the date range feature
 
 ## Live Demo (if available)
 
-[Live Demo Link](https://livedemo.com)
+[Live Demo Link](https://appetize.io/app/aprxbhccvtsfcakahy7nt33o44)
 
 
 ## Getting Started
