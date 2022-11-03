@@ -1,7 +1,11 @@
+import 'dart:async';
+
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stock_market_app/model/repository/EodRepository.dart';
 import 'package:stock_market_app/model/responses/intraday/intraday.dart';
 import 'package:stock_market_app/model/service/market_services.dart';
+import 'package:stock_market_app/utils/connectivity.dart';
 
 import '../../model/repository/IntradayRepository.dart';
 import '../../model/responses/eod/data.dart';
@@ -83,3 +87,15 @@ final errorDetailsProvider = StateProvider.autoDispose<String>((ref) => '');
 
 ///Set Error to empty initially
 final errorProvider = StateProvider.autoDispose<String>((ref) => '');
+
+///Set up Connectivity provider
+final connectivity = Provider<ConnectivityService>((ref) {
+  return ConnectivityService(StreamController<ConnectivityResult>());
+});
+
+///Set up internet checker stream
+final internetProvider = StreamProvider<ConnectivityResult>((ref) {
+  final connection = ref.watch(connectivity);
+  connection.checkNetwork();
+  return connection.networkStatusController.stream;
+});

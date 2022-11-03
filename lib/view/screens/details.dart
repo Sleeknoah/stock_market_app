@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/svg.dart';
@@ -42,6 +43,8 @@ class _MarketDetailsState extends ConsumerState<MarketDetails> {
     final startDate = ref.watch(dateTimeStart);
     final endDate = ref.watch(endTimeStart);
     final errorText = ref.watch(errorDetailsProvider);
+    final AsyncValue<ConnectivityResult> connection =
+        ref.watch(internetProvider);
 
     final loading = ref.watch(loadingDetailsProvider);
     ref.listen<Intraday?>(intradayDataProvider, (previous, next) {
@@ -81,6 +84,24 @@ class _MarketDetailsState extends ConsumerState<MarketDetails> {
       body: SafeArea(
         child: Column(
           children: [
+            connection.value == ConnectivityResult.none
+                ? Container(
+                    color: Colors.red,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Please check internet connection',
+                          style: GoogleFonts.nunito(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            textStyle: Theme.of(context).textTheme.caption,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
             Padding(
               padding: const EdgeInsets.only(top: 24.0),
               child: Column(

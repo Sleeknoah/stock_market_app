@@ -1,3 +1,4 @@
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -30,6 +31,9 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
           ref,
           RandomSymbols.getRandomArray(),
         );
+
+    ///Start Network checker
+    ref.read(connectivity).checkNetwork();
   }
 
   @override
@@ -37,6 +41,8 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
     final loadingState = ref.watch(loadingProvider);
     final data = ref.watch(dataProvider);
     final errorText = ref.watch(errorProvider);
+    final AsyncValue<ConnectivityResult> connection =
+        ref.watch(internetProvider);
     ref.listen<Eod?>(eodDataProvider, (previous, next) {
       ///if there is data set loading to false state
       if (next != null) {
@@ -74,6 +80,24 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
       body: SafeArea(
         child: Column(
           children: [
+            connection.value == ConnectivityResult.none
+                ? Container(
+                    color: Colors.red,
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Text(
+                          'Please check internet connection',
+                          style: GoogleFonts.nunito(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            textStyle: Theme.of(context).textTheme.caption,
+                          ),
+                        ),
+                      ),
+                    ),
+                  )
+                : SizedBox.shrink(),
             SizedBox(
               height: Dimensions.screenHeight * 0.05,
             ),

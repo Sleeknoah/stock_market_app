@@ -50,6 +50,7 @@ dependencies:
   envied: ^0.2.3
   syncfusion_flutter_datepicker: ^20.3.52
   syncfusion_flutter_charts: ^20.3.52
+  connectivity_plus: ^3.0.2
 
 
 dev_dependencies:
