@@ -1,13 +1,16 @@
 ![](https://img.shields.io/badge/Microverse-blueviolet)
 
-# Project Name
+# Stock Report App
 
-> Description the project.
+> Using the marketstack.com API, I built a flutter app that shows the stock market report of 10 random
+companies. Added a date range and an auto complete search box feature. 
+The user can see historical reports using the date range feature
 
 
 ## Built With
 
 - Major languages
+>Flutter
 - Frameworks
 - Technologies used
 
