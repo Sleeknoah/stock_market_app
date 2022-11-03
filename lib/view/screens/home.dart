@@ -7,6 +7,7 @@ import 'package:stock_market_app/utils/random_companies.dart';
 import 'package:stock_market_app/utils/size_constants.dart';
 import 'package:stock_market_app/view/custom/custom_autoComplete.dart';
 import 'package:stock_market_app/view/custom/list_item_custom.dart';
+import 'package:stock_market_app/view/screens/details.dart';
 
 class HomeScreen extends ConsumerStatefulWidget {
   const HomeScreen({
@@ -92,7 +93,15 @@ class _HomeScreenState extends ConsumerState<HomeScreen> {
                       itemBuilder: (context, index) {
                         return InkWell(
                           onTap: () {
-                            print(data[index].symbol);
+                            Navigator.of(context).push(
+                              MaterialPageRoute(
+                                builder: (context) {
+                                  return MarketDetails(
+                                    dataSet: data[index],
+                                  );
+                                },
+                              ),
+                            );
                           },
                           child: CustomListItem(
                             open: data![index].open!,

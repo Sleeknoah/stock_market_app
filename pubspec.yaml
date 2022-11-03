@@ -48,6 +48,8 @@ dependencies:
   google_fonts: ^3.0.1
   font_awesome_flutter: ^10.2.1
   envied: ^0.2.3
+  syncfusion_flutter_datepicker: ^20.3.52
+  syncfusion_flutter_charts: ^20.3.52
 
 
 dev_dependencies:

@@ -28,4 +28,18 @@ class MarketReportService {
       throw 'error';
     }
   }
+
+  Future<dynamic> retrieveEodIntraday(
+      String data, String start, String end) async {
+    var dio = DioClient(option: options).client();
+    try {
+      Response response = await dio.get(
+        '${ApiConstants.intradayUrl}?access_key=${ApiConstants.API_KEY}&symbols=$data&date_from=$start&date_to=$end',
+      );
+      print(response.data);
+      return response;
+    } on DioError catch (e) {
+      throw 'error';
+    }
+  }
 }

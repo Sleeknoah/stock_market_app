@@ -68,7 +68,7 @@ class CustomListItem extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Text(
-                    "\$$close",
+                    "\$${close.toStringAsFixed(2)}",
                     style: GoogleFonts.nunito(
                       fontWeight: FontWeight.w700,
                       textStyle: Theme.of(context).textTheme.headline6,

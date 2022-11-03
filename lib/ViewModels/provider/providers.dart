@@ -1,10 +1,13 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:stock_market_app/model/repository/EodRepository.dart';
+import 'package:stock_market_app/model/responses/intraday/intraday.dart';
 import 'package:stock_market_app/model/service/market_services.dart';
 
+import '../../model/repository/IntradayRepository.dart';
 import '../../model/responses/eod/data.dart';
 import '../../model/responses/eod/eod.dart';
 import '../state_classes/eod_state_notifier.dart';
+import '../state_classes/intraday_state_notifier.dart';
 import '../states/network.dart';
 
 ///Set loading to true initially
@@ -42,3 +45,35 @@ final dataProvider = StateProvider<List<Data>?>((ref) {
           (x) => x.symbol!.toLowerCase().contains(filterString.toLowerCase()))
       .toList();
 });
+
+///Dependency injection of intraday repository done here with riverpod
+final intradayRepositoryProvider = Provider<IntradayRepository>((ref) {
+  return IntradayRepository(service: MarketReportService());
+});
+
+///Intraday state notifier provider
+final intradayDataProvider =
+    StateNotifierProvider<IntradayStateNotifier, Intraday?>(
+  (ref) {
+    final repository = ref.watch(intradayRepositoryProvider);
+    return IntradayStateNotifier(null, repository);
+  },
+);
+
+///Start date provider with initial value 7 days from current date
+final dateTimeStart = StateProvider.autoDispose<DateTime>((ref) {
+  final dateTime = DateTime.now().subtract(
+    const Duration(
+      days: 7,
+    ),
+  );
+  return dateTime;
+});
+
+///End date provider with initial value as current date
+final endTimeStart = StateProvider.autoDispose<DateTime>((ref) {
+  return DateTime.now();
+});
+
+///Set loading to true initially
+final loadingDetailsProvider = StateProvider.autoDispose<bool>((ref) => true);
