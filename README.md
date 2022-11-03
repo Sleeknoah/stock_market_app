@@ -20,6 +20,7 @@ The user can see historical reports using the date range feature
 ## Live Demo (if available)
 
 [Click this Live Demo Link to test app online](https://appetize.io/app/aprxbhccvtsfcakahy7nt33o44)
+
 [Click to download Apk](https://drive.google.com/file/d/10Q_h0nrLag4tQrJf5JtM-zeHUpPSEK6P/view?usp=sharing)
 
 ![](https://github.com/Sleeknoah/stock_market_app/blob/master/stock_app.gif)
