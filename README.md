@@ -10,9 +10,12 @@ The user can see historical reports using the date range feature
 ## Built With
 
 - Major languages
->Flutter
+- >Dart, Java, Swift
 - Frameworks
+- >Flutter
 - Technologies used
+- >Android Studio
+
 
 ## Live Demo (if available)
 
@@ -21,29 +24,23 @@ The user can see historical reports using the date range feature
 
 ## Getting Started
 
-**This is an example of how you may give instructions on setting up your project locally.**
-**Modify this file to match your project, remove sections that don't apply. For example: delete the testing section if the currect project doesn't require testing.**
-
-
 To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
+- > Android Studio or Vscode. Flutter framework should be installed
 
 ### Setup
+- > Clone repository using http or ssh 
 
 ### Install
-
-### Usage
-
-### Run tests
-
-### Deployment
+- > After clones and set up  run flutter pub get in pubspec.yaml. 
+  > After successful flutter get, run app by clicking play button or run flutter run in terminal
 
 
 
 ## Authors
 
-👤 **Author**
+👤 **Chimdike Nnacheta**
 
 - GitHub: [@githubhandle](https://github.com/SleekNoah)
 - Twitter: [@twitterhandle](https://twitter.com/IamChimdike)
@@ -61,9 +58,8 @@ Give a ⭐️ if you like this project!
 
 ## Acknowledgments
 
-- Hat tip to anyone whose code was used
-- Inspiration
-- etc
+- Thanks to Remi Rousselet for the riverpod state management package
+- Design: [Design Inspiriation](https://cdn.dribbble.com/userupload/2734119/file/original-9b8d140fb05269b224f6f3eef8f8d6d3.jpg).
 
 ## 📝 License
 
