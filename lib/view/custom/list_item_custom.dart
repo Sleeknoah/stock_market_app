@@ -37,7 +37,7 @@ class CustomListItem extends StatelessWidget {
               ),
             ),
             Expanded(
-              flex: 3,
+              flex: 2,
               child: Container(
                 margin: const EdgeInsets.only(left: 24.0),
                 child: Column(
@@ -60,6 +60,13 @@ class CustomListItem extends StatelessWidget {
                     ),
                   ],
                 ),
+              ),
+            ),
+            Expanded(
+              flex: 1,
+              child: SvgPicture.asset(
+                close < open ? 'assets/svg/down.svg' : 'assets/svg/up.svg',
+                height: 40,
               ),
             ),
             Expanded(
